@@ -51,14 +51,18 @@ function lintGulpfile() {
 }
 
 function build() {
-  return gulp.src(path.join('src', config.entryFileName))
-    .pipe(webpackStream(webpackConfig))
-    .pipe(gulp.dest(destinationFolder))
-    .pipe($.filter(['**', '!**/*.js.map']))
-    .pipe($.rename(exportFileName + '.min.js'))
-    .pipe($.sourcemaps.init({ loadMaps: true }))
-    .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest(destinationFolder));
+  // return gulp.src(path.join('src', config.entryFileName))
+  //   .pipe(webpackStream(webpackConfig))
+  //   .pipe(gulp.dest(destinationFolder))
+  //   .pipe($.filter(['**', '!**/*.js.map']))
+  //   .pipe($.rename(exportFileName + '.min.js'))
+  //   .pipe($.sourcemaps.init({ loadMaps: true }))
+  //   .pipe($.sourcemaps.write('./'))
+  //   .pipe(gulp.dest(destinationFolder));
+
+  return gulp
+    .src('src/**/*.js')
+    .pipe(gulp.dest('dist'))
 }
 
 // Remove the built files

@@ -2,7 +2,7 @@
   "name": "react-frame-aware-selection-plugin",
   "version": "0.0.1",
   "description": "Modified version of React SelectEventPlugin with fixes related to iframe rendering. ",
-  "main": "dist/react-frame-aware-selection-plugin.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "babel-node ./node_modules/karma/bin/karma start test/config/karma.conf",
     "lint": "gulp lint",
