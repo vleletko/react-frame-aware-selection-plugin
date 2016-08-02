@@ -5,6 +5,7 @@ Modified version of React SelectEventPlugin with fixes related to iframe renderi
 [![Travis build status](http://img.shields.io/travis/vleletko/react-frame-aware-selection-plugin.svg?style=flat)](https://travis-ci.org/vleletko/react-frame-aware-selection-plugin)
 [![Dependency Status](https://david-dm.org/vleletko/react-frame-aware-selection-plugin.svg)](https://david-dm.org/vleletko/react-frame-aware-selection-plugin)
 [![devDependency Status](https://david-dm.org/vleletko/react-frame-aware-selection-plugin/dev-status.svg)](https://david-dm.org/vleletko/react-frame-aware-selection-plugin#info=devDependencies)
+[![npm version](https://badge.fury.io/js/react-frame-aware-selection-plugin.svg)](https://badge.fury.io/js/react-frame-aware-selection-plugin)
 
 1. [Usage](#usage)
 2. [Motivation](#motivation)
@@ -20,7 +21,7 @@ Modified version of React SelectEventPlugin with fixes related to iframe renderi
 
     ```js
     import React from 'react'
-    import ReactDOM from 'react'
+    import ReactDOM from 'react-dom'
     import injector from 'react-frame-aware-selection-plugin'
     injector();
     ```
