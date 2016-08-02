@@ -1,0 +1,72 @@
+{
+  "name": "react-frame-aware-selection-plugin",
+  "version": "0.0.1",
+  "description": "Modified version of React SelectEventPlugin with fixes related to iframe rendering. ",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "babel-node ./node_modules/karma/bin/karma start test/config/karma.conf",
+    "lint": "gulp lint",
+    "test:dev": "npm run test -- --watch",
+    "build": "gulp build",
+    "coverage": "gulp coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vleletko/react-frame-aware-selection-plugin.git"
+  },
+  "keywords": [],
+  "author": "Vladimir <vladimir.leletko@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vleletko/react-frame-aware-selection-plugin/issues"
+  },
+  "homepage": "https://github.com/vleletko/react-frame-aware-selection-plugin",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.0",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.3.13",
+    "chai": "^3.4.1",
+    "chai-as-promised": "^5.3.0",
+    "cheerio": "^0.20.0",
+    "del": "^2.2.0",
+    "glob": "^7.0.3",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^3.0.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-istanbul": "^1.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.1",
+    "imports-loader": "^0.6.5",
+    "isparta": "^4.0.0",
+    "json-loader": "^0.5.4",
+    "karma": "^1.1.2",
+    "karma-mocha": "^1.1.1",
+    "karma-mocha-reporter": "^2.1.0",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.4",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-frame-component": "^0.6.2",
+    "sinon": "^1.17.5",
+    "sinon-chai": "^2.8.0",
+    "webpack": "^1.12.9",
+    "webpack-stream": "^3.1.0",
+    "yargs": "^4.8.1"
+  },
+  "babelBoilerplateOptions": {
+    "entryFileName": "react-frame-aware-selection-plugin.js",
+    "mainVarName": "reactFrameAwareSelectionPlugin"
+  }
+}
