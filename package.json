@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/vleletko/react-frame-aware-selection-plugin",
   "devDependencies": {
+    "babel-cli": "^6.11.4",
     "babel-core": "^6.3.26",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.0",
