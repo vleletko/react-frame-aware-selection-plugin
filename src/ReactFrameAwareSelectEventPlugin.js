@@ -81,13 +81,6 @@ function getSelection(node) {
     }
 }
 
-/**
- * Poll selection to see whether it's changed.
- *
- * @param {object} nativeEvent
- * @return {?SyntheticEvent}
- */
-
 function getNodeWindow (domNode) {
     const doc = domNode.ownerDocument || domNode
     return doc.defaultView || doc.parentWindow
@@ -104,6 +97,12 @@ function getActiveElement(document) /*?DOMElement*/{
     }
 }
 
+/**
+ * Poll selection to see whether it's changed.
+ *
+ * @param {object} nativeEvent
+ * @return {?SyntheticEvent}
+ */
 function getActiveElementDeep() /*?DOMElement*/{
     var activeElement = getActiveElement(document)
 
@@ -163,8 +162,6 @@ var SelectEventPlugin = {
         if (!hasListener) {
             return null;
         }
-
-
 
         var targetNode = targetInst ?
             ReactDOMComponentTree.getNodeFromInstance(targetInst)

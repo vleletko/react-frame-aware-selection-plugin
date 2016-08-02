@@ -1,6 +1,5 @@
 import config from './config'
 
-
 const webpackConfig = {
   output: {
     filename: config.exportFileName + '.js',

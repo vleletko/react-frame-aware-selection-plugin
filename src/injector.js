@@ -1,13 +1,15 @@
 //perform actual injection of the modified plugin version to React Event Registry
 module.exports = function(){
+  var keyOf = require('fbjs/lib/keyOf');
   // reset plugins to allow injection
   require('react/lib/EventPluginRegistry')._resetEventPlugins();
+
 
   //extending default order plugin
   var DefaultEventPluginOrder = require('react/lib/DefaultEventPluginOrder');
   DefaultEventPluginOrder.push(keyOf({ReactFrameAwareSelectEventPlugin: null}));
 
-  const EventPluginHub = require('./react/lib/EventPluginHub');
+  const EventPluginHub = require('react/lib/EventPluginHub');
   //injection order
   EventPluginHub.injection.injectEventPluginOrder(DefaultEventPluginOrder);
 
