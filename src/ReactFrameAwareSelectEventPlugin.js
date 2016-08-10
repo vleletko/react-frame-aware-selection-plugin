@@ -56,7 +56,7 @@ var ON_SELECT_KEY = keyOf({ onSelect: null });
  * @return {object}
  */
 function getSelection(node) {
-    let window
+    var window
     if ('selectionStart' in node && ReactInputSelection.hasSelectionCapabilities(node)) {
         return {
             start: node.selectionStart,
