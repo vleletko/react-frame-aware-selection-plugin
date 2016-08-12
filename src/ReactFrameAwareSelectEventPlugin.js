@@ -82,7 +82,7 @@ function getSelection(node) {
 }
 
 function getNodeWindow (domNode) {
-    const doc = domNode.ownerDocument || domNode
+    var doc = domNode.ownerDocument || domNode
     return doc.defaultView || doc.parentWindow
 }
 
