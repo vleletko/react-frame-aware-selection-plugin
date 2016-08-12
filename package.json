@@ -1,6 +1,6 @@
 {
   "name": "react-frame-aware-selection-plugin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Modified version of React SelectEventPlugin with fixes related to iframe rendering. ",
   "main": "dist/index.js",
   "scripts": {
