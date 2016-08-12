@@ -14,7 +14,10 @@
     "type": "git",
     "url": "https://github.com/vleletko/react-frame-aware-selection-plugin.git"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "selection"
+  ],
   "author": "Vladimir <vladimir.leletko@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -58,7 +61,6 @@
     "mocha": "^2.3.4",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
-    "react-frame-component": "^0.6.2",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
     "webpack": "^1.12.9",
