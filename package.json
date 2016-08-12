@@ -61,6 +61,7 @@
     "mocha": "^2.3.4",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-frame-component": "^0.6.4",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
     "webpack": "^1.12.9",
