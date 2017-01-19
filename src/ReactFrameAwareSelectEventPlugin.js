@@ -6,34 +6,29 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule SelectEventPlugin
  */
 
 'use strict';
 
-var EventConstants = require('react/lib/EventConstants');
-var EventPropagators = require('react/lib/EventPropagators');
+var EventPropagators = require('react-dom/lib/EventPropagators');
 var ExecutionEnvironment = require('fbjs/lib/ExecutionEnvironment');
-var ReactDOMComponentTree = require('react/lib/ReactDOMComponentTree');
-var ReactInputSelection = require('react/lib/ReactInputSelection');
-var SyntheticEvent = require('react/lib/SyntheticEvent');
+var ReactDOMComponentTree = require('react-dom/lib/ReactDOMComponentTree');
+var ReactInputSelection = require('react-dom/lib/ReactInputSelection');
+var SyntheticEvent = require('react-dom/lib/SyntheticEvent');
 
-var isTextInputElement = require('react/lib/isTextInputElement');
-var keyOf = require('fbjs/lib/keyOf');
+var isTextInputElement = require('react-dom/lib/isTextInputElement');
 var shallowEqual = require('fbjs/lib/shallowEqual');
-
-var topLevelTypes = EventConstants.topLevelTypes;
 
 var skipSelectionChangeEvent = ExecutionEnvironment.canUseDOM && 'documentMode' in document && document.documentMode <= 11;
 
 var eventTypes = {
-    select: {
-        phasedRegistrationNames: {
-            bubbled: keyOf({ onSelect: null }),
-            captured: keyOf({ onSelectCapture: null })
-        },
-        dependencies: [topLevelTypes.topBlur, topLevelTypes.topContextMenu, topLevelTypes.topFocus, topLevelTypes.topKeyDown, topLevelTypes.topMouseDown, topLevelTypes.topMouseUp, topLevelTypes.topSelectionChange]
-    }
+  select: {
+    phasedRegistrationNames: {
+      bubbled: 'onSelect',
+      captured: 'onSelectCapture'
+    },
+    dependencies: ['topBlur', 'topContextMenu', 'topFocus', 'topKeyDown', 'topKeyUp', 'topMouseDown', 'topMouseUp', 'topSelectionChange']
+  }
 };
 
 var activeElement = null;
@@ -44,7 +39,6 @@ var mouseDown = false;
 // Track whether a listener exists for this plugin. If none exist, we do
 // not extract events. See #3639.
 var hasListener = false;
-var ON_SELECT_KEY = keyOf({ onSelect: null });
 
 /**
  * Get an object which is a unique representation of the current selection.
@@ -56,34 +50,34 @@ var ON_SELECT_KEY = keyOf({ onSelect: null });
  * @return {object}
  */
 function getSelection(node) {
-    let window
-    if ('selectionStart' in node && ReactInputSelection.hasSelectionCapabilities(node)) {
-        return {
-            start: node.selectionStart,
-            end: node.selectionEnd
-        };
-    } else if ((window = getNodeWindow(node)).getSelection) {
-        var selection = window.getSelection();
-        return {
-            anchorNode: selection.anchorNode,
-            anchorOffset: selection.anchorOffset,
-            focusNode: selection.focusNode,
-            focusOffset: selection.focusOffset
-        };
-    } else if (document.selection) {
-        var range = document.selection.createRange();
-        return {
-            parentElement: range.parentElement(),
-            text: range.text,
-            top: range.boundingTop,
-            left: range.boundingLeft
-        };
-    }
+  var window
+  if ('selectionStart' in node && ReactInputSelection.hasSelectionCapabilities(node)) {
+    return {
+      start: node.selectionStart,
+      end: node.selectionEnd
+    };
+  } else if ((window = getNodeWindow(node)).getSelection) {
+    var selection = window.getSelection();
+    return {
+      anchorNode: selection.anchorNode,
+      anchorOffset: selection.anchorOffset,
+      focusNode: selection.focusNode,
+      focusOffset: selection.focusOffset
+    };
+  } else if (document.selection) {
+    var range = document.selection.createRange();
+    return {
+      parentElement: range.parentElement(),
+      text: range.text,
+      top: range.boundingTop,
+      left: range.boundingLeft
+    };
+  }
 }
 
 function getNodeWindow (domNode) {
-    const doc = domNode.ownerDocument || domNode
-    return doc.defaultView || doc.parentWindow
+  var doc = domNode.ownerDocument || domNode
+  return doc.defaultView || doc.parentWindow
 }
 
 function getActiveElement(document) /*?DOMElement*/{
@@ -114,30 +108,30 @@ function getActiveElementDeep() /*?DOMElement*/{
 }
 
 function constructSelectEvent(nativeEvent, nativeEventTarget) {
-    // Ensure we have the right element, and that the user is not dragging a
-    // selection (this matches native `select` event behavior). In HTML5, select
-    // fires only on input and textarea thus if there's no focused element we
-    // won't dispatch.
-    if (mouseDown || activeElement == null || activeElement !== getActiveElementDeep()) {
-        return null;
-    }
-
-    // Only fire when selection has actually changed.
-    var currentSelection = getSelection(activeElement);
-    if (!lastSelection || !shallowEqual(lastSelection, currentSelection)) {
-        lastSelection = currentSelection;
-
-        var syntheticEvent = SyntheticEvent.getPooled(eventTypes.select, activeElementInst, nativeEvent, nativeEventTarget);
-
-        syntheticEvent.type = 'select';
-        syntheticEvent.target = activeElement;
-
-        EventPropagators.accumulateTwoPhaseDispatches(syntheticEvent);
-
-        return syntheticEvent;
-    }
-
+  // Ensure we have the right element, and that the user is not dragging a
+  // selection (this matches native `select` event behavior). In HTML5, select
+  // fires only on input and textarea thus if there's no focused element we
+  // won't dispatch.
+  if (mouseDown || activeElement == null || activeElement !== getActiveElementDeep()) {
     return null;
+  }
+
+  // Only fire when selection has actually changed.
+  var currentSelection = getSelection(activeElement);
+  if (!lastSelection || !shallowEqual(lastSelection, currentSelection)) {
+    lastSelection = currentSelection;
+
+    var syntheticEvent = SyntheticEvent.getPooled(eventTypes.select, activeElementInst, nativeEvent, nativeEventTarget);
+
+    syntheticEvent.type = 'select';
+    syntheticEvent.target = activeElement;
+
+    EventPropagators.accumulateTwoPhaseDispatches(syntheticEvent);
+
+    return syntheticEvent;
+  }
+
+  return null;
 }
 
 /**
@@ -156,69 +150,69 @@ function constructSelectEvent(nativeEvent, nativeEventTarget) {
  */
 var SelectEventPlugin = {
 
-    eventTypes: eventTypes,
+  eventTypes: eventTypes,
 
-    extractEvents: function (topLevelType, targetInst, nativeEvent, nativeEventTarget) {
-        if (!hasListener) {
-            return null;
-        }
-
-        var targetNode = targetInst ?
-            ReactDOMComponentTree.getNodeFromInstance(targetInst)
-            : (nativeEventTarget.ownerDocument ? nativeEventTarget.ownerDocument : nativeEventTarget).defaultView;
-
-        switch (topLevelType) {
-            // Track the input node that has focus.
-            case topLevelTypes.topFocus:
-                if (isTextInputElement(targetNode) || targetNode.contentEditable === 'true') {
-                    activeElement = targetNode;
-                    activeElementInst = targetInst;
-                    lastSelection = null;
-                }
-                break;
-            case topLevelTypes.topBlur:
-                activeElement = null;
-                activeElementInst = null;
-                lastSelection = null;
-                break;
-
-            // Don't fire the event while the user is dragging. This matches the
-            // semantics of the native select event.
-            case topLevelTypes.topMouseDown:
-                mouseDown = true;
-                break;
-            case topLevelTypes.topContextMenu:
-            case topLevelTypes.topMouseUp:
-                mouseDown = false;
-                return constructSelectEvent(nativeEvent, nativeEventTarget);
-
-            // Chrome and IE fire non-standard event when selection is changed (and
-            // sometimes when it hasn't). IE's event fires out of order with respect
-            // to key and input events on deletion, so we discard it.
-            //
-            // Firefox doesn't support selectionchange, so check selection status
-            // after each key entry. The selection changes after keydown and before
-            // keyup, but we check on keydown as well in the case of holding down a
-            // key, when multiple keydown events are fired but only one keyup is.
-            // This is also our approach for IE handling, for the reason above.
-            case topLevelTypes.topSelectionChange:
-                if (skipSelectionChangeEvent) {
-                    break;
-                }
-            // falls through
-            case topLevelTypes.topKeyDown:
-            case topLevelTypes.topKeyUp:
-                return constructSelectEvent(nativeEvent, nativeEventTarget);
-        }
-
-        return null;
-    },
-
-    didPutListener: function (inst, registrationName, listener) {
-        if (registrationName === ON_SELECT_KEY) {
-            hasListener = true;
-        }
+  extractEvents: function (topLevelType, targetInst, nativeEvent, nativeEventTarget) {
+    if (!hasListener) {
+      return null;
     }
+
+    var targetNode = targetInst
+        ? ReactDOMComponentTree.getNodeFromInstance(targetInst)
+        : (nativeEventTarget.ownerDocument ? nativeEventTarget.ownerDocument : nativeEventTarget).defaultView;
+
+    switch (topLevelType) {
+      // Track the input node that has focus.
+      case 'topFocus':
+        if (isTextInputElement(targetNode) || targetNode.contentEditable === 'true') {
+          activeElement = targetNode;
+          activeElementInst = targetInst;
+          lastSelection = null;
+        }
+        break;
+      case 'topBlur':
+        activeElement = null;
+        activeElementInst = null;
+        lastSelection = null;
+        break;
+
+      // Don't fire the event while the user is dragging. This matches the
+      // semantics of the native select event.
+      case 'topMouseDown':
+        mouseDown = true;
+        break;
+      case 'topContextMenu':
+      case 'topMouseUp':
+        mouseDown = false;
+        return constructSelectEvent(nativeEvent, nativeEventTarget);
+
+      // Chrome and IE fire non-standard event when selection is changed (and
+      // sometimes when it hasn't). IE's event fires out of order with respect
+      // to key and input events on deletion, so we discard it.
+      //
+      // Firefox doesn't support selectionchange, so check selection status
+      // after each key entry. The selection changes after keydown and before
+      // keyup, but we check on keydown as well in the case of holding down a
+      // key, when multiple keydown events are fired but only one keyup is.
+      // This is also our approach for IE handling, for the reason above.
+      case 'topSelectionChange':
+        if (skipSelectionChangeEvent) {
+          break;
+        }
+      // falls through
+      case 'topKeyDown':
+      case 'topKeyUp':
+        return constructSelectEvent(nativeEvent, nativeEventTarget);
+    }
+
+    return null;
+  },
+
+  didPutListener: function (inst, registrationName, listener) {
+    if (registrationName === 'onSelect') {
+      hasListener = true;
+    }
+  }
 };
 
 module.exports = SelectEventPlugin;
