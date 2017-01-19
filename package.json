@@ -16,7 +16,8 @@
   },
   "keywords": [
     "react",
-    "selection"
+    "selection",
+    "iframe"
   ],
   "author": "Vladimir <vladimir.leletko@gmail.com>",
   "license": "MIT",
