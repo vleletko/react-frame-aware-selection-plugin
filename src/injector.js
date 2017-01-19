@@ -2,23 +2,23 @@
 module.exports = function(){
   var keyOf = require('fbjs/lib/keyOf');
   // reset plugins to allow injection
-  require('react/lib/EventPluginRegistry')._resetEventPlugins();
+  require('react-dom/lib/EventPluginRegistry')._resetEventPlugins();
 
 
   //extending default order plugin
-  var DefaultEventPluginOrder = require('react/lib/DefaultEventPluginOrder');
-  DefaultEventPluginOrder.push(keyOf({ReactFrameAwareSelectEventPlugin: null}));
+  var DefaultEventPluginOrder = require('react-dom/lib/DefaultEventPluginOrder');
+  DefaultEventPluginOrder.push('ReactFrameAwareSelectEventPlugin');
 
-  var EventPluginHub = require('react/lib/EventPluginHub');
+  var EventPluginHub = require('react-dom/lib/EventPluginHub');
   //injection order
   EventPluginHub.injection.injectEventPluginOrder(DefaultEventPluginOrder);
 
   //restoring original event chain with modified plugin
   EventPluginHub.injection.injectEventPluginsByName({
-    'SimpleEventPlugin': require('react/lib/SimpleEventPlugin'),
-    'EnterLeaveEventPlugin': require('react/lib/EnterLeaveEventPlugin'),
-    'ChangeEventPlugin': require('react/lib/ChangeEventPlugin'),
-    'ReactFrameAwareSelectEventPlugin': require('./ReactFrameAwareSelectEventPlugin'),
-    'BeforeInputEventPlugin': require('react/lib/BeforeInputEventPlugin'),
+    BeforeInputEventPlugin: require('react-dom/lib/BeforeInputEventPlugin'),
+    SelectEventPlugin: require('./ReactFrameAwareSelectEventPlugin'),
+    ChangeEventPlugin: require('react-dom/lib/ChangeEventPlugin'),
+    EnterLeaveEventPlugin: require('react-dom/lib/EnterLeaveEventPlugin'),
+    SimpleEventPlugin: require('react-dom/lib/SimpleEventPlugin'),
   });
 }
