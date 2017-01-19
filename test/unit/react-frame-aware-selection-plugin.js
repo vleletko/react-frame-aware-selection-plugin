@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import injector from '../../src/index'
 import Plugin from '../../src/ReactFrameAwareSelectEventPlugin'
 
-import EventPluginRegistry from 'react/lib/EventPluginRegistry'
+import EventPluginRegistry from 'react-dom/lib/EventPluginRegistry'
 import Frame from 'react-frame-component'
 
 const getIFrameDoc = () => document.querySelector('iframe').contentDocument
