@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import injector from '../../src/index'
 import Plugin from '../../src/ReactFrameAwareSelectEventPlugin'
-
-import EventPluginRegistry from 'react-dom/lib/EventPluginRegistry'
 import Frame from 'react-frame-component'
+
+const EventPluginRegistry = ReactDOM.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.EventPluginRegistry
 
 const getIFrameDoc = () => document.querySelector('iframe').contentDocument
 
