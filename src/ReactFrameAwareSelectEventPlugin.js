@@ -10,13 +10,14 @@
 
 'use strict';
 
-var EventPropagators = require('react-dom/lib/EventPropagators');
+var EventPropagators = require('react-dom').__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.EventPropagators;
 var ExecutionEnvironment = require('fbjs/lib/ExecutionEnvironment');
-var ReactDOMComponentTree = require('react-dom/lib/ReactDOMComponentTree');
-var ReactInputSelection = require('react-dom/lib/ReactInputSelection');
-var SyntheticEvent = require('react-dom/lib/SyntheticEvent');
+var ReactDOMComponentTree = require('react-dom').__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactDOMComponentTree;
+var ReactInputSelection = require('./ReactInputSelection');
+var SyntheticEvent = require('./SyntheticEvent');
+var {DOCUMENT_NODE} = require('./HTMLNodeType')
 
-var isTextInputElement = require('react-dom/lib/isTextInputElement');
+var isTextInputElement = require('./isTextInputElement');
 var shallowEqual = require('fbjs/lib/shallowEqual');
 
 var skipSelectionChangeEvent = ExecutionEnvironment.canUseDOM && 'documentMode' in document && document.documentMode <= 11;
@@ -153,7 +154,8 @@ var SelectEventPlugin = {
   eventTypes: eventTypes,
 
   extractEvents: function (topLevelType, targetInst, nativeEvent, nativeEventTarget) {
-    if (!hasListener) {
+    var doc = nativeEventTarget.window === nativeEventTarget ? nativeEventTarget.document : nativeEventTarget.nodeType === DOCUMENT_NODE ? nativeEventTarget : nativeEventTarget.ownerDocument;
+    if (!doc){
       return null;
     }
 
