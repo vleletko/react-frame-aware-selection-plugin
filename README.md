@@ -16,8 +16,12 @@ Modified version of React SelectEventPlugin with fixes related to iframe renderi
 1. Add npm package
 
     Latest
+    
+    `npm install react-frame-aware-selection-plugin@2.0.0 --save `
+    
+    React >= 15.4 && < 16.0.0
 
-    `npm install react-frame-aware-selection-plugin --save `
+    `npm install react-frame-aware-selection-plugin@1.0.0 --save `
     
     React < 15.4
     
