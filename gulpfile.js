@@ -3,7 +3,6 @@ const gulp = require('gulp');
 const loadPlugins = require('gulp-load-plugins');
 const del = require('del');
 const babel = require('gulp-babel');
-const glob = require('glob');
 const path = require('path');
 const manifest = require('./package.json');
 
@@ -51,11 +50,6 @@ function build() {
   return gulp.src('src/**/*.js')
       .pipe(babel())
       .pipe(gulp.dest('dist'))
-
-
-  // return gulp
-  //   .src('src/**/*.js')
-  //   .pipe(gulp.dest('dist'))
 }
 
 // Remove the built files
